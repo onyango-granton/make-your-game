@@ -31,7 +31,7 @@ This game follows a classic arcade genre from the Pre-Approved List:
 1. Clone this repository:
 
      ```bash
-     git clone https://github.com/your-username/make-your-game.git
+     git clone https://learn.zone01kisumu.ke/git/gonyango/make-your-game.git
      cd make-your-game
      ```
 
