@@ -54,6 +54,8 @@ const piece_color = {
   'Z': 'violet'
 };
 
+//order of sequence how tetrominoes will appear
+const game_tetromino_sequence = []
 
 //restarting and pausing game functions
 document.addEventListener('keydown', function(e){
@@ -69,3 +71,18 @@ document.addEventListener('keydown', function(e){
         //todo implement pause
     }
 })
+
+
+//get randomInt to be used in populate_tetromino_sequence
+function getRandomInt(stop) {
+  return Math.floor(Math.random() * stop);
+}
+
+//populate game_tetromino_sequence
+function populate_tetromino_sequence() {
+    const tetros = ['I', 'J', 'L', 'O', 'S', 'T', 'Z'];
+    while (true) {
+        const rand = getRandomInt(tetros.length)
+        game_tetromino_sequence.push(tetros[rand])
+    }
+}
