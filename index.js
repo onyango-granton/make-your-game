@@ -2,6 +2,9 @@
 const canvas = document.getElementById('game_canvas')
 const context = canvas.getContext('2d')
 
+// context.fillStyle = '#000'
+// context.fillRect(0,0, canvas.width, canvas.clientHeight)
+
 // defining tetrominoes
 const tetrominoes = {
   'I': [
@@ -81,7 +84,7 @@ function getRandomInt(stop) {
 //populate game_tetromino_sequence
 function populate_tetromino_sequence() {
     const tetros = ['I', 'J', 'L', 'O', 'S', 'T', 'Z'];
-    while (true) {
+    for (let i = 0; i < 100; i++) {
         const rand = getRandomInt(tetros.length)
         game_tetromino_sequence.push(tetros[rand])
     }
