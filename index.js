@@ -54,9 +54,10 @@ const player = {
 document.addEventListener('keydown', function(e) {
   if (e.key === "ArrowLeft"){
     player.pos.x--
-  }
-  if (e.key === "ArrowRight"){
+  } else if (e.key === "ArrowRight"){
     player.pos.x++
+  } else if (e.key === "ArrowDown"){
+    player.pos.y++
   }
 })
 
