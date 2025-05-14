@@ -40,6 +40,9 @@ function playerMove(dir){
 
 function playerRotate(dir){
   rotate(player.matrix, dir)
+  while (collide(arena, matrix)){
+    
+  }
 }
 
 function rotate(matrix, dir){
@@ -127,7 +130,11 @@ document.addEventListener('keydown', function(e) {
     playerMove(1)
   } else if (e.key === "ArrowDown"){
     playerDrop()
+  } else if (e.key === "ArrowUp"){
+    console.log("space")
+    playerRotate(+1)
   }
+  console.log(e.key)
 })
 
 update()
