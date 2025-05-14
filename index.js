@@ -45,13 +45,13 @@ const tetrominoes = {
 
 //restarting and pausing game functions
 document.addEventListener('keydown', function(e){
-    if (e.code === 'r'){
+    if (e.key === "r"){
         console.log("Refresh key pressed")
 
         //todo implement restart
     }
 
-    if (e.code === 'p'){
+    if (e.key === 'p'){
         console.log("Pause key pressed")
         //todo implement pause
     }
