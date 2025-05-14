@@ -1,3 +1,7 @@
+//getting the game canvas
+const canvas = document.getElementById('game')
+const context = canvas.getContext(contextId = '2d')
+
 // defining tetrominoes
 const tetrominoes = {
   'I': [
@@ -37,3 +41,9 @@ const tetrominoes = {
   ],
   
 };
+
+
+//refresh page thus restart game
+document.addEventListener('keydown', function(e){
+    
+})
