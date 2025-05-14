@@ -31,10 +31,18 @@ function createMatrix(w, h){
   return matrix
 }
 
+function playerMove(dir){
+  player.pos.x += dir
+  if (collide(arena, player)){
+    player.pos.x -= dir
+  }
+}
+
 function draw(){
   context.fillStyle = "#000"
   context.fillRect(0,0, canvas.clientWidth, canvas.clientHeight)
 
+  drawMatrix(arena, {x:0, y:0})
   drawMatrix(player.matrix, player.pos)
 }
 
@@ -96,9 +104,9 @@ const player = {
 
 document.addEventListener('keydown', function(e) {
   if (e.key === "ArrowLeft"){
-    player.pos.x--
+    playerMove(-1)
   } else if (e.key === "ArrowRight"){
-    player.pos.x++
+    playerMove(1)
   } else if (e.key === "ArrowDown"){
     playerDrop()
   }
