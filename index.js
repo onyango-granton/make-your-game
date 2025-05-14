@@ -47,8 +47,9 @@ const tetrominoes = {
 document.addEventListener('keydown', function(e){
     if (e.key === "r"){
         console.log("Refresh key pressed")
-
-        //todo implement restart
+        
+        //implemented restart function; reload page
+        this.location.reload()
     }
 
     if (e.key === 'p'){
