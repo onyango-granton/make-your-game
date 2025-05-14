@@ -10,6 +10,19 @@ const matrix = [
   [0,1,0]
 ]
 
+function collide(arena, player){
+  const [m, o] = [player.matrix. player.pos]
+
+  for(let y=0; y < m.length; ++y){
+    for(let x = 0; x < m[y].length; ++x){
+      if (m[y][x] !== 0 && (arena[y + o.y] && arena[y + o.y][x + o.x]) !== 0){
+        return true
+      }
+    }
+  }
+  return false
+}
+
 function createMatrix(w, h){
   const matrix = []
   while (h--){
@@ -69,7 +82,7 @@ function update(time = 0) {
 }
 
 const arena = createMatrix(12,20)
-console.log(arena); console.table(arena)
+// console.log(arena); console.table(arena)
 
 const player = {
   pos: {x : 5, y : 5},
