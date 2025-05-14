@@ -51,4 +51,13 @@ const player = {
   matrix: matrix
 }
 
+document.addEventListener('keydown', function(e) {
+  if (e.key === "ArrowLeft"){
+    player.pos.x--
+  }
+  if (e.key === "ArrowRight"){
+    player.pos.x++
+  }
+})
+
 update()
