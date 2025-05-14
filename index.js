@@ -1,6 +1,6 @@
 //getting the game canvas
 const canvas = document.getElementById('game')
-const context = canvas.getContext(contextId = '2d')
+//const context = canvas.getContext('2d')
 
 // defining tetrominoes
 const tetrominoes = {
@@ -43,7 +43,16 @@ const tetrominoes = {
 };
 
 
-//refresh page thus restart game
+//restarting and pausing game functions
 document.addEventListener('keydown', function(e){
-    
+    if (e.code === 'r'){
+        console.log("Refresh key pressed")
+
+        //todo implement restart
+    }
+
+    if (e.code === 'p'){
+        console.log("Pause key pressed")
+        //todo implement pause
+    }
 })
