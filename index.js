@@ -11,7 +11,7 @@ const matrix = [
 ]
 
 function collide(arena, player){
-  const [m, o] = [player.matrix. player.pos]
+  const [m, o] = [player.matrix, player.pos]
 
   for(let y=0; y < m.length; ++y){
     for(let x = 0; x < m[y].length; ++x){
@@ -61,6 +61,11 @@ function merge(arena, player){
 
 function playerDrop(){
   player.pos.y++
+  if (collide(arena, player)){
+    player.pos.y--
+    merge(arena, player)
+    player.pos.y = 0
+  }
   dropCounter = 0
 }
 
