@@ -43,6 +43,18 @@ const tetrominoes = {
 };
 
 
+// tetromino color
+const piece_color = {
+  'I': 'red',
+  'J': 'orange',
+  'L': 'yellow',
+  'O': 'green',
+  'S': 'blue',
+  'T': 'indigo',
+  'Z': 'violet'
+};
+
+
 //restarting and pausing game functions
 document.addEventListener('keydown', function(e){
     if (e.key === "r"){
