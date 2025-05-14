@@ -1,6 +1,6 @@
 //getting the game canvas
-const canvas = document.getElementById('game')
-//const context = canvas.getContext('2d')
+const canvas = document.getElementById('game_canvas')
+const context = canvas.getContext('2d')
 
 // defining tetrominoes
 const tetrominoes = {
