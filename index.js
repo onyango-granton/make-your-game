@@ -84,6 +84,13 @@ function playerMove(dir){
   }
 }
 
+function playerReset(){
+  const peices = "IJLOTSZ"
+  player.matrix = createMatrix(peices.length * Math.random() | 0)
+  player.pos.y = 0
+  player.pos.x = (arena[0].length / 2 | 0) - (player.matrix[0].length / 2 | 0)
+}
+
 function playerRotate(dir){
   const pos = player.pos.x
   let offset = 1
@@ -147,7 +154,7 @@ function playerDrop(){
   if (collide(arena, player)){
     player.pos.y--
     merge(arena, player)
-    player.pos.y = 0
+    playerReset()
   }
   dropCounter = 0
 }
@@ -174,7 +181,7 @@ const arena = createMatrix(12,20)
 
 const player = {
   pos: {x : 5, y : 5},
-  matrix: matrix
+  matrix: createPiece('T')
 }
 
 document.addEventListener('keydown', function(e) {
