@@ -86,7 +86,8 @@ function playerMove(dir){
 
 function playerReset(){
   const peices = "IJLOTSZ"
-  player.matrix = createMatrix(peices.length * Math.random() | 0)
+  player.matrix = createPiece(peices[peices.length * Math.random() | 0])
+  
   player.pos.y = 0
   player.pos.x = (arena[0].length / 2 | 0) - (player.matrix[0].length / 2 | 0)
 }
@@ -155,6 +156,7 @@ function playerDrop(){
     player.pos.y--
     merge(arena, player)
     playerReset()
+    //player.pos.y = 0
   }
   dropCounter = 0
 }
