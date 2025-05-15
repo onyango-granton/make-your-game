@@ -16,7 +16,14 @@
             <p>→ Right</p>
             <p>↓ Down</p>
         </div>
-        <canvas width="240" height="400" id="game_canvas" style="margin-left: 10px; margin-right: 10px;"></canvas>
+        <div style="display: flex; flex-direction: column;">
+            <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                <div>Tetris Mania</div>
+                <div>World</div>
+            </div>
+            <canvas width="240" height="400" id="game_canvas" style="margin-left: 10px; margin-right: 10px;"></canvas>
+            <div style="text-align: center;" id="game_status"></div>
+        </div> 
         <div id="right-div">
             <p id="score"></p>
             <p id="timer"></p>
