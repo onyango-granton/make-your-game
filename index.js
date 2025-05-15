@@ -87,7 +87,7 @@ function playerMove(dir){
 function playerReset(){
   const peices = "IJLOTSZ"
   player.matrix = createPiece(peices[peices.length * Math.random() | 0])
-  
+  //console.log(player.matrix)
   player.pos.y = 0
   player.pos.x = (arena[0].length / 2 | 0) - (player.matrix[0].length / 2 | 0)
 
