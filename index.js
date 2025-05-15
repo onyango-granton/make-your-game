@@ -257,10 +257,22 @@ document.addEventListener('keydown', function(e) {
     window.location.reload()
   } else if (e.key === "p"){
     pauseGameState = !pauseGameState
+    gameStatus()
   }
   console.log(e.key)
 })
 
+function gameStatus(){
+  if (!pauseGameState){
+    document.getElementById("game_status").innerText = "Active"
+    document.getElementById("game_status").style.color = "green"
+  } else {
+    document.getElementById("game_status").innerText = "Paused"
+    document.getElementById("game_status").style.color = "red"
+  }
+}
+
+gameStatus()
 updateScore()
 playerReset()
 update()
