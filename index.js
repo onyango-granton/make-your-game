@@ -136,10 +136,28 @@ function draw(){
 function drawMatrix(matrix, offset){
   matrix.forEach((row, y) => {
     row.forEach((value, x) => {
-      console.log(player.matrix)
-      if (value != 0){
-        context.fillStyle = 'red'
-        context.fillRect(x + offset.x,y + offset.y,1,1)
+      //console.log(player.matrix)
+      if (value == 1) {
+        context.fillStyle = 'red';
+        context.fillRect(x + offset.x, y + offset.y, 1, 1);
+      } else if (value == 2) {
+        context.fillStyle = 'orange';
+        context.fillRect(x + offset.x, y + offset.y, 1, 1);
+      } else if (value == 3) {
+        context.fillStyle = 'yellow';
+        context.fillRect(x + offset.x, y + offset.y, 1, 1);
+      } else if (value == 4) {
+        context.fillStyle = 'green';
+        context.fillRect(x + offset.x, y + offset.y, 1, 1);
+      } else if (value == 5) {
+        context.fillStyle = 'blue';
+        context.fillRect(x + offset.x, y + offset.y, 1, 1);
+      } else if (value == 6) {
+        context.fillStyle = 'purple';
+        context.fillRect(x + offset.x, y + offset.y, 1, 1);
+      } else if (value == 7) {
+        context.fillStyle = 'pink';
+        context.fillRect(x + offset.x, y + offset.y, 1, 1);
       }
     })
   })
