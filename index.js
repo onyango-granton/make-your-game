@@ -217,6 +217,8 @@ let dropInterval = 1000
 
 let lastTime = 0
 
+const startTime = new Date().getTime()
+
 function update(time = 0) {
   const deltaTime = time - lastTime
   lastTime = time
@@ -225,6 +227,10 @@ function update(time = 0) {
   if (dropCounter > dropInterval){
     playerDrop()
   }
+
+  let newTime =  new Date().getTime()
+  let duration = newTime - startTime
+  document.getElementById("timer").innerText = duration 
 
   draw()
   requestAnimationFrame(update)
