@@ -10,6 +10,8 @@ const matrix = [
   [0,1,0]
 ]
 
+let pauseGameState = false
+
 function arenaSweep(){
   let rowCount = 1
   outer: for (let y = arena.length - 1; y > 0; --y){
@@ -193,16 +195,21 @@ function merge(arena, player){
 }
 
 function playerDrop(){
-  player.pos.y++
-  if (collide(arena, player)){
-    player.pos.y--
-    merge(arena, player)
-    playerReset()
-    arenaSweep()
-    updateScore()
-    //player.pos.y = 0
+  if (!pauseGameState) {
+    player.pos.y++
+    if (collide(arena, player)){
+      player.pos.y--
+      merge(arena, player)
+      playerReset()
+      arenaSweep()
+      updateScore()
+      //player.pos.y = 0
+    }
+    dropCounter = 0
+  } else {
+    null
   }
-  dropCounter = 0
+  
 }
 
 let dropCounter = 0
@@ -238,14 +245,18 @@ const player = {
 
 document.addEventListener('keydown', function(e) {
   if (e.key === "ArrowLeft"){
-    playerMove(-1)
+    !pauseGameState ? playerMove(-1) : playerMove(0)
   } else if (e.key === "ArrowRight"){
-    playerMove(1)
+    !pauseGameState ? playerMove(1) : playerMove(0)
   } else if (e.key === "ArrowDown"){
-    playerDrop()
+    !pauseGameState ? playerDrop() : null
   } else if (e.key === "ArrowUp"){
-    console.log("space")
-    playerRotate(+1)
+    // console.log("space")
+    !pauseGameState ? playerRotate(+1) : null
+  } else if (e.key === "r"){
+    window.location.reload()
+  } else if (e.key === "p"){
+    pauseGameState = !pauseGameState
   }
   console.log(e.key)
 })
