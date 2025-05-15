@@ -217,7 +217,9 @@ let dropInterval = 1000
 
 let lastTime = 0
 
-const startTime = new Date().getTime()
+let startTime = new Date().getTime()
+
+let isWindowBlurred = false
 
 function update(time = 0) {
   const deltaTime = time - lastTime
@@ -228,9 +230,13 @@ function update(time = 0) {
     playerDrop()
   }
 
+  
+
   let newTime =  new Date().getTime()
   let duration = newTime - startTime
-  document.getElementById("timer").innerText = duration 
+  
+
+  timer(duration, newTime)
 
   draw()
   requestAnimationFrame(update)
@@ -275,6 +281,24 @@ function gameStatus(){
   } else {
     document.getElementById("game_status").innerText = "Paused"
     document.getElementById("game_status").style.color = "red"
+  }
+}
+
+function timer(duration, newTime){
+    window.onfocus = function() {
+    if (isWindowBlurred){
+      let diff = newTime - startTime
+      document.getElementById("timer").innerText = duration - diff
+      isWindowBlurred = false
+    } else {
+      document.getElementById("timer").innerText = duration 
+    }
+  }
+  
+
+  window.onblur = function(){
+    isWindowBlurred = true
+    startTime = newTime
   }
 }
 
