@@ -31,6 +31,52 @@ function createMatrix(w, h){
   return matrix
 }
 
+function createPiece(type) {
+  if (type == 'I') {
+    return [
+    [0,0,0,0],
+    [1,1,1,1],
+    [0,0,0,0],
+    [0,0,0,0]
+    ]
+  } else if (type == 'J') {
+    return [
+    [1,0,0],
+    [1,1,1],
+    [0,0,0]
+    ]
+  } else if (type == 'L') {
+    return [
+    [0,0,1],
+    [1,1,1],
+    [0,0,0]
+    ]
+  } else if (type == 'O') {
+    return [
+    [1,1],
+    [1,1]
+    ]
+  } else if (type == 'S') {
+    return [
+    [0,1,1],
+    [1,1,0],
+    [0,0,0]
+    ]
+  } else if (type == 'T') {
+    return [
+    [0,1,0],
+    [1,1,1],
+    [0,0,0]
+    ]
+  } else if (type == 'Z') {
+    return [
+    [1,1,0],
+    [0,1,1],
+    [0,0,0]
+    ]
+  } 
+}
+
 function playerMove(dir){
   player.pos.x += dir
   if (collide(arena, player)){
@@ -39,9 +85,17 @@ function playerMove(dir){
 }
 
 function playerRotate(dir){
+  const pos = player.pos.x
+  let offset = 1
   rotate(player.matrix, dir)
-  while (collide(arena, matrix)){
-    
+  while (collide(arena, player)){
+    player.pos.x +=  offset
+    offset = -(offset + (offset > 0 ? 1 : -1))
+    if (offset > player.matrix[0].length) {
+      rotate(player.matrix, -dir)
+      player.pos.x = pos
+      return
+    }
   }
 }
 
