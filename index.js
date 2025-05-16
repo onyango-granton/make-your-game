@@ -268,7 +268,14 @@ document.addEventListener('keydown', function(e) {
   } else if (e.key === "r"){
     window.location.reload()
   } else if (e.key === "p"){
-    pauseGameState = !pauseGameState
+    if (!pauseGameState) {
+      pauseGameState = true
+      pauseStartTime = new Date().getTime()
+    } else {
+      pauseGameState = false
+      totalPauseTime += new Date().getTime() - pauseStartTime
+      pauseStartTime = 0
+    }
     gameStatus()
   }
   console.log(e.key)
@@ -290,33 +297,34 @@ let lastDuration = 0
 
 window.addEventListener('blur', () => {
   isWindowBlurred = true
-  console.log("blurred")
-  pauseStartTime = new Date().getTime()
-})
-
-window.addEventListener('focus', () => {
-  isWindowBlurred = false
-  console.log("focused")
-  if (pauseStartTime) {
-    totalPauseTime += new Date().getTime() - pauseStartTime
-    
-    pauseStartTime = 0
+  if (!pauseStartTime) {
+    pauseStartTime = new Date().getTime()
   }
 })
 
-function timer(duration, newTime){
-    if (!pauseGameState && !isWindowBlurred){
-      let currentTime = new Date().getTime()
-      let duration = currentTime - startTime - totalPauseTime
-      duration = (duration / 1000 | 0)
+window.addEventListener('focus', () => {
+  if (isWindowBlurred && pauseStartTime) {
+    totalPauseTime += new Date().getTime() - pauseStartTime
+    pauseStartTime = 0
+  }
+  isWindowBlurred = false
+})
 
-      document.getElementById("timer").innerText = duration
-      lastDuration = duration
+let switchTimer = false
+
+let switchPauseTime = 0
+
+function timer() {
+  if (!pauseGameState && !isWindowBlurred) {
+    const now = new Date().getTime()
+    const elapsed = ((now - startTime - totalPauseTime) / 1000) | 0
+    document.getElementById("timer").innerText = elapsed
+    lastDuration = elapsed
   } else {
     document.getElementById("timer").innerText = lastDuration
   }
 }
-  
+
 
 
 gameStatus()
