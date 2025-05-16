@@ -296,6 +296,9 @@ let totalPauseTime = 0
 let lastDuration = 0
 
 window.addEventListener('blur', () => {
+  if (pauseGameState){
+    return
+  }
   isWindowBlurred = true
   if (!pauseStartTime) {
     pauseStartTime = new Date().getTime()
@@ -303,6 +306,9 @@ window.addEventListener('blur', () => {
 })
 
 window.addEventListener('focus', () => {
+  if (pauseGameState){
+    return
+  }
   if (isWindowBlurred && pauseStartTime) {
     totalPauseTime += new Date().getTime() - pauseStartTime
     pauseStartTime = 0
