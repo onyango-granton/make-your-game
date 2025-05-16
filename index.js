@@ -103,18 +103,24 @@ function playerMove(dir){
   }
 }
 
+let isGameOver = false
+
 function playerReset(){
   const peices = "IJLOTSZ"
   player.matrix = createPiece(peices[peices.length * Math.random() | 0])
   //console.log(player.matrix)
   player.pos.y = 0
   player.pos.x = (arena[0].length / 2 | 0) - (player.matrix[0].length / 2 | 0)
-
-  if (collide(arena, player)) {
-    arena.forEach(row => row.fill(0))
-    player.score = 0
-    updateScore()
+  
+  if (collide(arena, player)){
+    isGameOver = true
   }
+
+  // if (collide(arena, player)) {
+  //   arena.forEach(row => row.fill(0))
+  //   player.score = 0
+  //   updateScore()
+  // }
 }
 
 function playerRotate(dir){
@@ -239,7 +245,7 @@ function update(time = 0) {
   timer(duration, newTime)
 
   draw()
-  requestAnimationFrame(update)
+  !isGameOver ? requestAnimationFrame(update) : gameOver()
 }
 
 function updateScore() {
@@ -304,6 +310,14 @@ window.addEventListener('blur', () => {
     pauseStartTime = new Date().getTime()
   }
 })
+
+
+function gameOver(){
+  context.fillStyle = "#000"
+  context.fillRect(0,0, canvas.clientWidth, canvas.clientHeight)
+  document.getElementById("game_status").innerText = "GAMEOVER..."
+  document.getElementById("game_status").style.color = "black"
+}
 
 window.addEventListener('focus', () => {
   if (pauseGameState){
