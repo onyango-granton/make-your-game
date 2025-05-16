@@ -311,12 +311,32 @@ window.addEventListener('blur', () => {
   }
 })
 
+let HighScore = 0
+let TotalTime = 0
+
 
 function gameOver(){
+  let highscoreText = "Highscore: "+ player.score
+  let totalTime = "Time Played: " + formatTime(lastDuration)
   context.fillStyle = "#000"
   context.fillRect(0,0, canvas.clientWidth, canvas.clientHeight)
+  context.fillStyle = "red"
+  context.textAlign = "center";
+  context.textBaseline = "middle";
+  context.font = "0.5px Arial"
+  // GameStats
+  // HighScore:
+  // Time:
+  context.fillText("Game Status", 6,1);
+  context.fillText(highscoreText, 6,1.5);
+  context.fillText(totalTime, 6,3);
+  context.scale(2,2)
   document.getElementById("game_status").innerText = "GAMEOVER..."
   document.getElementById("game_status").style.color = "black"
+}
+
+function formatTime(seconds){
+  return new Date(seconds * 1000).toISOString().slice(11, 19);
 }
 
 window.addEventListener('focus', () => {
