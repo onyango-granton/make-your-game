@@ -284,23 +284,40 @@ function gameStatus(){
   }
 }
 
-function timer(duration, newTime){
-    window.onfocus = function() {
-    if (isWindowBlurred){
-      let diff = newTime - startTime
-      document.getElementById("timer").innerText = duration - diff
-      isWindowBlurred = false
-    } else {
-      document.getElementById("timer").innerText = duration 
-    }
-  }
-  
+let pauseStartTime = 0
+let totalPauseTime = 0
+let lastDuration = 0
 
-  window.onblur = function(){
-    isWindowBlurred = true
-    startTime = newTime
+window.addEventListener('blur', () => {
+  isWindowBlurred = true
+  console.log("blurred")
+  pauseStartTime = new Date().getTime()
+})
+
+window.addEventListener('focus', () => {
+  isWindowBlurred = false
+  console.log("focused")
+  if (pauseStartTime) {
+    totalPauseTime += new Date().getTime() - pauseStartTime
+    
+    pauseStartTime = 0
+  }
+})
+
+function timer(duration, newTime){
+    if (!pauseGameState && !isWindowBlurred){
+      let currentTime = new Date().getTime()
+      let duration = currentTime - startTime - totalPauseTime
+      duration = (duration / 1000 | 0)
+
+      document.getElementById("timer").innerText = duration
+      lastDuration = duration
+  } else {
+    document.getElementById("timer").innerText = lastDuration
   }
 }
+  
+
 
 gameStatus()
 updateScore()
