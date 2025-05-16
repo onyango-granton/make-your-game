@@ -320,16 +320,20 @@ function gameOver(){
   let totalTime = "Time Played: " + formatTime(lastDuration)
   context.fillStyle = "#000"
   context.fillRect(0,0, canvas.clientWidth, canvas.clientHeight)
-  context.fillStyle = "red"
+  context.fillStyle = "white"
   context.textAlign = "center";
   context.textBaseline = "middle";
-  context.font = "0.5px Arial"
+  context.font = "1px Arial"
   // GameStats
   // HighScore:
   // Time:
-  context.fillText("Game Status", 6,1);
-  context.fillText(highscoreText, 6,1.5);
-  context.fillText(totalTime, 6,3);
+  context.fillText("Game Status", 6,8);
+  context.fillStyle = "blue"
+  context.fillText(highscoreText, 6,9);
+  context.fillText(totalTime, 6,10.5);
+  context.fillStyle = "white"
+  context.font = "0.8px Arial"
+  context.fillText("To play again... press 'r'", 6,19);
   context.scale(2,2)
   document.getElementById("game_status").innerText = "GAMEOVER..."
   document.getElementById("game_status").style.color = "black"
@@ -358,10 +362,10 @@ function timer() {
   if (!pauseGameState && !isWindowBlurred) {
     const now = new Date().getTime()
     const elapsed = ((now - startTime - totalPauseTime) / 1000) | 0
-    document.getElementById("timer").innerText = elapsed
+    document.getElementById("timer").innerText = formatTime(elapsed)
     lastDuration = elapsed
   } else {
-    document.getElementById("timer").innerText = lastDuration
+    document.getElementById("timer").innerText = formatTime(lastDuration)
   }
 }
 
