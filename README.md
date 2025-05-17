@@ -85,5 +85,5 @@ This project is licensed under the MIT License.
 
 Made with ❤️ and a craving for dopamine by:
 
-- **Granton Onyango**
-- **Maina Nyagooh**
+- [**Maina Nyagooh**](https://www.linkedin.com/in/maina-anne-37797820b/)
+- [**Granton Onyango**](https://www.linkedin.com/in/granton-onyango/)
