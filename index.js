@@ -325,7 +325,9 @@ document.addEventListener('keydown', function(e) {
   } else if (e.key === "r"){
     window.location.reload()
   } else if (e.key === "p"){
-    togglePause();
+    if (!isGameOver){
+      togglePause();
+    }
   }
   console.log(e.key)
 })
