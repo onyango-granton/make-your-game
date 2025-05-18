@@ -30,6 +30,10 @@ function createMatrix(w, h) {
   return matrix;
 }
 
+function formatTime(seconds) {
+  return new Date(seconds * 1000).toISOString().slice(11,19)
+}
+
 function createPiece(type) {
   if (type === 'T') return [[0,6,0],[6,6,6],[0,0,0]];
   if (type === 'O') return [[4,4],[4,4]];
@@ -173,7 +177,7 @@ let startTime = new Date().getTime();
 
 function timer(duration, newTime) {
   const seconds = Math.floor(duration / 1000);
-  document.getElementById("timer").innerText = "Time: " + seconds + "s";
+  document.getElementById("timer").innerText = formatTime(seconds);
 }
 
 function update(time = 0) {
