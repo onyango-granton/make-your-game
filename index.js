@@ -325,15 +325,7 @@ document.addEventListener('keydown', function(e) {
   } else if (e.key === "r"){
     window.location.reload()
   } else if (e.key === "p"){
-    if (!pauseGameState) {
-      pauseGameState = true
-      pauseStartTime = new Date().getTime()
-    } else {
-      pauseGameState = false
-      totalPauseTime += new Date().getTime() - pauseStartTime
-      pauseStartTime = 0
-    }
-    gameStatus()
+    togglePause();
   }
   console.log(e.key)
 })
@@ -429,13 +421,19 @@ function gameOver() {
     document.getElementById("game_status").style.color = "#ff4444";
 }
 
+//track the pause overlay
+let pauseOverlay = null;
+
+// Updated pauseGame function
 function pauseGame() {
+    if (pauseOverlay) return; // Prevents multiple overlays
+    
     const highscoreText = "Current Score: " + player.score;
     const totalTime = "Time Played: " + formatTime(lastDuration);
     
-    const pauseGameDiv = document.createElement('div');
-    pauseGameDiv.className = 'game-over';
-    pauseGameDiv.innerHTML = `
+    pauseOverlay = document.createElement('div');
+    pauseOverlay.className = 'game-over'; // Reuse the same styling
+    pauseOverlay.innerHTML = `
         <h2>Game Paused</h2>
         <p>${highscoreText}</p>
         <p>${totalTime}</p>
@@ -443,10 +441,30 @@ function pauseGame() {
         <p>To restart... press 'r'</p>
     `;
     
-    gameContainer.appendChild(pauseGameDiv);
-    
-    /*document.getElementById("game_status").textContent = "GAME OVER";
-    document.getElementById("game_status").style.color = "#ff4444";*/
+    gameContainer.appendChild(pauseOverlay);
+}
+
+// Updated unpauseGame function
+function unpauseGame() {
+    if (pauseOverlay) {
+        gameContainer.removeChild(pauseOverlay);
+        pauseOverlay = null;
+    }
+}
+
+// Updated togglePause function
+function togglePause() {
+    if (!pauseGameState) {
+        pauseGameState = true;
+        pauseStartTime = performance.now();
+        pauseGame(); // Show pause overlay
+    } else {
+        pauseGameState = false;
+        totalPauseTime += performance.now() - pauseStartTime;
+        pauseStartTime = 0;
+        unpauseGame(); // Remove pause overlay
+    }
+    gameStatus();
 }
 
 function formatTime(seconds) {
