@@ -6,106 +6,148 @@
     <title>Tetris</title>
     
     <style>
-        body {
+        * {
             margin: 0;
-            padding: 20px;
-            font-family: Arial, sans-serif;
-            background-color: #1a1a1a;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
             color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
         }
 
         #game_div {
             display: flex;
             flex-direction: row;
-            margin-left: auto;
-            margin-right: auto;
-            max-width: 600px;
-            gap: 20px;
+            width: 100%;
+            max-width: 800px;
+            gap: 15px;
+            align-items: flex-start;
+            justify-content: center;
         }
 
         #left_div, #right-div {
-            padding: 20px;
-            background-color: #2a2a2a;
-            border-radius: 10px;
-            min-width: 120px;
+            padding: 15px;
+            background: linear-gradient(145deg, #2a2a2a, #1e1e1e);
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            flex: 0 0 auto;
+            min-width: 140px;
+            max-width: 180px;
         }
 
         #left_div p, #right-div p {
-            margin: 10px 0;
-            font-size: 14px;
+            margin: 8px 0;
+            font-size: clamp(12px, 2vw, 14px);
+            padding: 8px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.05);
+            transition: all 0.2s ease;
         }
 
-        #game_container {
-            display: grid;
-            width: 240px;
-            height: 400px;
-            border: 2px solid #444;
-            background-color: #000;
-            gap: 1px;
-            margin-left: 10px;
-            margin-right: 10px;
+        #left_div p:hover, #right-div p:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
         }
 
-        .cell {
-            background-color: #000;
-            border: 1px solid #111;
-            transition: background-color 0.1s ease;
-        }
-
-        /* Piece colors */
-        .piece-red {
-            background-color: #ff4444;
-            border-color: #ff6666;
-        }
-
-        .piece-orange {
-            background-color: #ff8844;
-            border-color: #ffaa66;
-        }
-
-        .piece-yellow {
-            background-color: #ffff44;
-            border-color: #ffff66;
-        }
-
-        .piece-green {
-            background-color: #44ff44;
-            border-color: #66ff66;
-        }
-
-        .piece-blue {
-            background-color: #4444ff;
-            border-color: #6666ff;
-        }
-
-        .piece-purple {
-            background-color: #8844ff;
-            border-color: #aa66ff;
-        }
-
-        .piece-pink {
-            background-color: #ff44ff;
-            border-color: #ff66ff;
+        .game-center {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 280px;
+            max-width: 400px;
         }
 
         .header-row {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
-            margin-bottom: 10px;
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 0 10px;
         }
 
         .header-row div {
-            font-size: 18px;
+            font-size: clamp(16px, 3vw, 20px);
             font-weight: bold;
+            color: #4CAF50;
+        }
+
+        #game_container {
+            display: grid;
+            width: min(300px, 80vw);
+            height: min(500px, 133vw);
+            max-height: 70vh;
+            aspect-ratio: 3/5;
+            border: 3px solid #4CAF50;
+            background-color: #000;
+            gap: 1px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(76, 175, 80, 0.3);
+            will-change: contents;
+        }
+
+        .cell {
+            background-color: #0a0a0a;
+            border: 1px solid #1a1a1a;
+            transition: none; /* Remove transitions for better performance */
+            will-change: background-color;
+        }
+
+        /* Optimized piece colors with better contrast */
+        .piece-red {
+            background-color: #ff3030;
+            border-color: #ff5050;
+        }
+
+        .piece-orange {
+            background-color: #ff7f00;
+            border-color: #ff9f20;
+        }
+
+        .piece-yellow {
+            background-color: #ffff00;
+            border-color: #ffff40;
+        }
+
+        .piece-green {
+            background-color: #00ff00;
+            border-color: #40ff40;
+        }
+
+        .piece-blue {
+            background-color: #0080ff;
+            border-color: #40a0ff;
+        }
+
+        .piece-purple {
+            background-color: #8000ff;
+            border-color: #a040ff;
+        }
+
+        .piece-pink {
+            background-color: #ff00ff;
+            border-color: #ff40ff;
         }
 
         #game_status {
             text-align: center;
-            margin-top: 10px;
-            padding: 10px;
-            border-radius: 5px;
-            background-color: #333;
+            margin-top: 15px;
+            padding: 12px 20px;
+            border-radius: 10px;
+            background: linear-gradient(145deg, #333, #222);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+            font-weight: bold;
+            font-size: clamp(14px, 2.5vw, 16px);
         }
 
         .game-over {
@@ -118,40 +160,136 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background-color: rgba(0, 0, 0, 0.9);
+            background-color: rgba(0, 0, 0, 0.95);
             color: white;
             text-align: center;
             padding: 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
         }
 
         .game-over h2 {
             margin-bottom: 20px;
             color: #ff4444;
+            font-size: clamp(20px, 4vw, 28px);
         }
 
         .game-over p {
             margin: 10px 0;
-            font-size: 16px;
+            font-size: clamp(14px, 2.5vw, 18px);
         }
 
         #score, #timer {
             font-weight: bold;
+            color: #4CAF50;
         }
 
         #pause, #restart {
             cursor: pointer;
-            padding: 5px;
-            border-radius: 3px;
-            background-color: #333;
-            transition: background-color 0.2s;
+            padding: 8px 12px;
+            border-radius: 8px;
+            background: linear-gradient(145deg, #333, #222);
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
         }
 
         #pause:hover, #restart:hover {
-            background-color: #444;
+            background: linear-gradient(145deg, #444, #333);
+            border-color: #4CAF50;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        /* FPS Counter */
+        #fps-counter {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.7);
+            color: #4CAF50;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-family: monospace;
+            z-index: 1000;
+        }
+
+        /* Mobile optimization */
+        @media (max-width: 768px) {
+            #game_div {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+
+            #left_div, #right-div {
+                width: 100%;
+                max-width: 300px;
+                order: 2;
+            }
+
+            .game-center {
+                order: 1;
+                width: 100%;
+            }
+
+            #game_container {
+                width: min(280px, 90vw);
+                height: min(467px, 150vw);
+            }
+        }
+
+        @media (max-width: 480px) {
+            #left_div, #right-div {
+                padding: 10px;
+            }
+
+            #left_div p, #right-div p {
+                margin: 5px 0;
+                padding: 6px;
+                font-size: 12px;
+            }
+
+            #game_container {
+                width: min(250px, 95vw);
+                height: min(417px, 158vw);
+            }
+        }
+
+        /* Landscape mobile optimization */
+        @media (max-height: 600px) and (orientation: landscape) {
+            body {
+                align-items: flex-start;
+                padding: 5px;
+            }
+
+            #game_div {
+                flex-direction: row;
+                gap: 10px;
+            }
+
+            #game_container {
+                height: 85vh;
+                width: calc(85vh * 0.6);
+            }
+
+            .header-row div {
+                font-size: 16px;
+            }
+        }
+
+        /* High DPI display optimization */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .cell {
+                image-rendering: crisp-edges;
+                image-rendering: pixelated;
+            }
         }
     </style>
 </head>
 <body>
+    <div id="fps-counter">FPS: 0</div>
+    
     <div id="game_div">
         <div id="left_div">
             <p>↑ Rotate</p>
@@ -159,16 +297,16 @@
             <p>→ Right</p>
             <p>↓ Down</p>
         </div>
-        <div style="display: flex; flex-direction: column;">
+        <div class="game-center">
             <div class="header-row">
                 <div>Tetris Mania</div>
-                <div id="timer"></div>
+                <div id="timer">00:00:00</div>
             </div>
             <div id="game_container"></div>
-            <div id="game_status"></div>
+            <div id="game_status">Ready</div>
         </div> 
         <div id="right-div">
-            <p id="score"></p>
+            <p id="score">Score: 0</p>
             <p id="pause"><b>P</b> Pause/Play</p>
             <p id="restart"><b>R</b> Restart</p>
         </div>
