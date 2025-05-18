@@ -313,30 +313,30 @@ const player = {
 let keyStates = {};
 
 document.addEventListener('keydown', function(e) {
-    if (keyStates[e.key]) return; // Prevent key repeat
-    keyStates[e.key] = true;
-    
-    switch(e.key) {
-        case "ArrowLeft":
-            !pauseGameState && playerMove(-1);
-            break;
-        case "ArrowRight":
-            !pauseGameState && playerMove(1);
-            break;
-        case "ArrowDown":
-            !pauseGameState && playerDrop();
-            break;
-        case "ArrowUp":
-            !pauseGameState && playerRotate(1);
-            break;
-        case "r":
-            restartGame();
-            break;
-        case "p":
-            togglePause();
-            break;
+  if (e.key === "ArrowLeft"){
+    !pauseGameState ? playerMove(-1) : playerMove(0)
+  } else if (e.key === "ArrowRight"){
+    !pauseGameState ? playerMove(1) : playerMove(0)
+  } else if (e.key === "ArrowDown"){
+    !pauseGameState ? playerDrop() : null
+  } else if (e.key === "ArrowUp"){
+    // console.log("space")
+    !pauseGameState ? playerRotate(+1) : null
+  } else if (e.key === "r"){
+    window.location.reload()
+  } else if (e.key === "p"){
+    if (!pauseGameState) {
+      pauseGameState = true
+      pauseStartTime = new Date().getTime()
+    } else {
+      pauseGameState = false
+      totalPauseTime += new Date().getTime() - pauseStartTime
+      pauseStartTime = 0
     }
-});
+    gameStatus()
+  }
+  console.log(e.key)
+})
 
 document.addEventListener('keyup', function(e) {
     keyStates[e.key] = false;
