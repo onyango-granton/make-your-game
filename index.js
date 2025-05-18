@@ -409,7 +409,14 @@ window.addEventListener('focus', () => {
     isWindowBlurred = false;
 });
 
+// Updated gameOver function to handle pause overlay
 function gameOver() {
+    // Remove pause overlay if it exists
+    if (pauseOverlay) {
+        gameContainer.removeChild(pauseOverlay);
+        pauseOverlay = null;
+    }
+    
     const highscoreText = "Highscore: " + player.score;
     const totalTime = "Time Played: " + formatTime(lastDuration);
     
