@@ -346,7 +346,14 @@ function togglePause() {
     gameStatus();
 }
 
+// Updated restartGame function to clear pause overlay
 function restartGame() {
+    // Remove pause overlay if it exists
+    if (pauseOverlay) {
+        gameContainer.removeChild(pauseOverlay);
+        pauseOverlay = null;
+    }
+    
     // Reset all game state
     arena.forEach(row => row.fill(0));
     player.score = 0;
