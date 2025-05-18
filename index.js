@@ -429,6 +429,26 @@ function gameOver() {
     document.getElementById("game_status").style.color = "#ff4444";
 }
 
+function pauseGame() {
+    const highscoreText = "Current Score: " + player.score;
+    const totalTime = "Time Played: " + formatTime(lastDuration);
+    
+    const pauseGameDiv = document.createElement('div');
+    pauseGameDiv.className = 'game-over';
+    pauseGameDiv.innerHTML = `
+        <h2>Game Paused</h2>
+        <p>${highscoreText}</p>
+        <p>${totalTime}</p>
+        <p>To continue... press 'p'</p>
+        <p>To restart... press 'r'</p>
+    `;
+    
+    gameContainer.appendChild(pauseGameDiv);
+    
+    /*document.getElementById("game_status").textContent = "GAME OVER";
+    document.getElementById("game_status").style.color = "#ff4444";*/
+}
+
 function formatTime(seconds) {
     return new Date(seconds * 1000).toISOString().slice(11, 19);
 }
